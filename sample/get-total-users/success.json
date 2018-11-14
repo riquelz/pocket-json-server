@@ -1,0 +1,10 @@
+{
+    "responseCode": "1000",
+    "responseMessage": "Process successful.",
+    "response": {
+      "registered_customer": "400",
+      "pocket_user": "350",
+      "agent": "100",
+      "merchant": "159"
+    }
+  }
