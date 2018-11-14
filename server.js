@@ -11,12 +11,18 @@ const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'))
 //server.use(bodyParser.json())
 server.use(jsonServer.defaults());
 
-const SECRET_KEY = '123456789'
+const USERNAME = 'admin'
+const PASSWORD = '121314'
 
-const expiresIn = '1h'
-
+server.use(jsonServer.bodyParser)
 server.post('/auth/login', (req, res) => {
-  res.status(200).json(userdb)
+  if(req.body.username === USERNAME && req.body.password === PASSWORD)
+    res.status(200).json(userdb)
+  else {
+    const status = 401
+    const message = 'Error Username or Password'
+    res.status(status).json({ status, message })
+  }
 })
 
 server.use(/^(?!\/auth).*$/,  (req, res, next) => {
