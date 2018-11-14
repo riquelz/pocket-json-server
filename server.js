@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken')
 
 const server = jsonServer.create()
 const router = jsonServer.router('./db.json')
-const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'))
+const loginSuccess = JSON.parse(fs.readFileSync('./sample/login/success.json', 'UTF-8'))
+const loginError = JSON.parse(fs.readFileSync('./sample/login/error.json', 'UTF-8'))
 const successForgotDb = JSON.parse(fs.readFileSync('./sample/forgotpassword/success.json', 'UTF-8'))
 const errorForgotDb = JSON.parse(fs.readFileSync('./sample/forgotpassword/error.json', 'UTF-8'))
 
@@ -17,13 +18,11 @@ const USERNAME = 'admin'
 const PASSWORD = '121314'
 
 server.use(jsonServer.bodyParser)
-server.post('/auth/login', (req, res) => {
+server.post('/api/user/login', (req, res) => {
   if(req.body.username === USERNAME && req.body.password === PASSWORD)
-    res.status(200).json(userdb)
+    res.status(200).json(loginSuccess)
   else {
-    const status = 401
-    const message = 'Error Username or Password'
-    res.status(status).json({ status, message })
+    res.status(200).json(loginError)
   }
 })
 
@@ -35,7 +34,7 @@ server.post('/api/user/get-by-username', (req, res) => {
   }
 })
 
-server.use(/^(?!\/auth).*$/,  (req, res, next) => {
+server.use(/^(?!\/user).*$/,  (req, res, next) => {
     next()
 })
 
