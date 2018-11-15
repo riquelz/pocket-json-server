@@ -12,6 +12,8 @@ const errorForgotDb = JSON.parse(fs.readFileSync('./sample/forgotpassword/error.
 const getTotalUsersSuccess = JSON.parse(fs.readFileSync('./sample/get-total-users/success.json', 'UTF-8'))
 const getUserStatisticSuccess = JSON.parse(fs.readFileSync('./sample/get-user-statistic/success.json', 'UTF-8'))
 const getUserStatisticError = JSON.parse(fs.readFileSync('./sample/get-user-statistic/error.json', 'UTF-8'))
+const gePendingApprovalSuccess = JSON.parse(fs.readFileSync('./sample/get-pending-approval/success.json', 'UTF-8'))
+const gePendingApprovalError = JSON.parse(fs.readFileSync('./sample/get-pending-approval/error.json', 'UTF-8'))
 
 //server.use(bodyParser.urlencoded({extended: true}))
 //server.use(bodyParser.json())
@@ -46,9 +48,17 @@ server.post('/api/user/get-user-statistic', (req, res) => {
   }
 })
 
-server.use(/^(?!\/user).*$/,  (req, res, next) => {
-    next()
+server.post('/api/approval/get-pending-approval', (req, res) => {
+  if(req.body.max === "5")
+    res.status(200).json(gePendingApprovalSuccess)
+  else {
+    res.status(200).json(gePendingApprovalError)
+  }
 })
+
+// server.use(/^(?!\/user).*$/,  (req, res, next) => {
+//     next()
+// })
 
 server.use(router)
 

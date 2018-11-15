@@ -37,6 +37,34 @@
         "pocket_user": 32,
         "agent": 17,
         "merchant": 35
+      },
+      {
+        "name": "Jun 2018",
+        "registered_customer": 66,
+        "pocket_user": 13,
+        "agent": 17,
+        "merchant": 22
+      },
+      {
+        "name": "Jul 2018",
+        "registered_customer": 54,
+        "pocket_user": 34,
+        "agent": 21,
+        "merchant": 22
+      },
+      {
+        "name": "Aug 2018",
+        "registered_customer": 60,
+        "pocket_user": 17,
+        "agent": 17,
+        "merchant": 15
+      },
+      {
+        "name": "Sept 2018",
+        "registered_customer": 55,
+        "pocket_user": 21,
+        "agent": 43,
+        "merchant": 11
       }
     ]
   }
