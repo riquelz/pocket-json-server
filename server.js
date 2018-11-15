@@ -12,8 +12,10 @@ const errorForgotDb = JSON.parse(fs.readFileSync('./sample/forgotpassword/error.
 const getTotalUsersSuccess = JSON.parse(fs.readFileSync('./sample/get-total-users/success.json', 'UTF-8'))
 const getUserStatisticSuccess = JSON.parse(fs.readFileSync('./sample/get-user-statistic/success.json', 'UTF-8'))
 const getUserStatisticError = JSON.parse(fs.readFileSync('./sample/get-user-statistic/error.json', 'UTF-8'))
-const gePendingApprovalSuccess = JSON.parse(fs.readFileSync('./sample/get-pending-approval/success.json', 'UTF-8'))
-const gePendingApprovalError = JSON.parse(fs.readFileSync('./sample/get-pending-approval/error.json', 'UTF-8'))
+const getPendingApprovalSuccess = JSON.parse(fs.readFileSync('./sample/get-pending-approval/success.json', 'UTF-8'))
+const getPendingApprovalError = JSON.parse(fs.readFileSync('./sample/get-pending-approval/error.json', 'UTF-8'))
+const getMenuSuccess = JSON.parse(fs.readFileSync('./sample/get-menu/success.json', 'UTF-8'))
+const getMenuError = JSON.parse(fs.readFileSync('./sample/get-menu/error.json', 'UTF-8'))
 
 //server.use(bodyParser.urlencoded({extended: true}))
 //server.use(bodyParser.json())
@@ -47,12 +49,20 @@ server.post('/api/user/get-user-statistic', (req, res) => {
     res.status(200).json(getUserStatisticError)
   }
 })
-
-server.post('/api/approval/get-pending-approval', (req, res) => {
-  if(req.body.max === "5")
-    res.status(200).json(gePendingApprovalSuccess)
+server.post('/api/user/get-menu-by-username', (req, res) => {
+  if (req.body.username === USERNAME){
+    res.status(200).json(getMenuSuccess)
+  }
   else {
-    res.status(200).json(gePendingApprovalError)
+    res.status(200).json(getMenuError)
+  }
+})
+server.post('/api/approval/get-pending-approval', (req, res) => {
+  if (req.body.max === '5'){
+    res.status(200).json(getPendingApprovalSuccess)
+  }
+  else {
+    res.status(200).json(getPendingApprovalError)
   }
 })
 

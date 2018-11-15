@@ -1,0 +1,50 @@
+{
+    "responseCode": "1000",
+    "responseMessage": "Process successful.",
+    "response": {
+      "menus": [
+        {
+          "id": "1",
+          "type": "item",
+          "icon": "dashboard",
+          "name": "Dashboard"
+        },
+        {
+          "id": "2",
+          "type": "subitem",
+          "icon": "setting",
+          "name": "Settings",
+          "childs": [
+            {
+              "id": "6",
+              "type": "item",
+              "icon": "setting",
+              "name": "Setting Parameter",
+              "childs": [
+                {
+                  "id": "8",
+                  "type": "item",
+                  "icon": "setting",
+                  "name": "Setting Setting"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "type": "itemgroup",
+          "icon": "dashboard",
+          "name": "Dashboard",
+          "childs": [
+            {
+              "id": "8",
+              "type": "item",
+              "icon": "setting",
+              "name": "Setting Parameter"
+            }
+          ]
+        }
+      ]
+    }
+  }
