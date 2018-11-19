@@ -35,7 +35,7 @@ let PASSWORD = '121314'
 server.use(jsonServer.bodyParser)
 server.post('/api/user/login', (req, res) => {
   if (req.body.username === USERNAME) {
-    if (req.body.username === PASSWORD)
+    if (req.body.password === PASSWORD)
       res.status(200).json(loginSuccess)
     else
       res.status(200).json(loginPasswordError)
@@ -92,11 +92,7 @@ server.post('/api/user/get-total-users', (req, res) => {
   res.status(200).json(getTotalUsersSuccess)
 })
 server.post('/api/user/get-user-statistic', (req, res) => {
-  if(req.body.type === "ANNUAL")
-    res.status(200).json(getUserStatisticSuccess)
-  else {
-    res.status(200).json(getUserStatisticError)
-  }
+  res.status(200).json(getUserStatisticSuccess)
 })
 server.post('/api/user/get-menu-by-username', (req, res) => {
   if (req.body.username === USERNAME){
