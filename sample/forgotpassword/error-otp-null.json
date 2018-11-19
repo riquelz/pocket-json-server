@@ -1,0 +1,7 @@
+{
+    "responseCode": "1003",
+    "responseMessage": "Missing mandatory field.",
+    "errorDetails": {
+        "token": "OTP must not be empty"
+    }
+}

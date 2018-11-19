@@ -6,9 +6,17 @@ const jwt = require('jsonwebtoken')
 const server = jsonServer.create()
 const router = jsonServer.router('./db.json')
 const loginSuccess = JSON.parse(fs.readFileSync('./sample/login/success.json', 'UTF-8'))
-const loginError = JSON.parse(fs.readFileSync('./sample/login/error.json', 'UTF-8'))
+const loginUsernameError = JSON.parse(fs.readFileSync('./sample/login/username-error.json', 'UTF-8'))
+const loginPasswordError = JSON.parse(fs.readFileSync('./sample/login/password-error.json', 'UTF-8'))
 const successForgotDb = JSON.parse(fs.readFileSync('./sample/forgotpassword/success.json', 'UTF-8'))
+const successReset = JSON.parse(fs.readFileSync('./sample/reset-password/success.json', 'UTF-8'))
+const errorReset = JSON.parse(fs.readFileSync('./sample/reset-password/error.json', 'UTF-8'))
+const successAnswer = JSON.parse(fs.readFileSync('./sample/security-question/success.json', 'UTF-8'))
+const errorAnswer = JSON.parse(fs.readFileSync('./sample/security-question/error.json', 'UTF-8'))
 const errorForgotDb = JSON.parse(fs.readFileSync('./sample/forgotpassword/error.json', 'UTF-8'))
+const errorSubmitOTP = JSON.parse(fs.readFileSync('./sample/forgotpassword/error-otp.json', 'UTF-8'))
+const errorSubmitOTPNull = JSON.parse(fs.readFileSync('./sample/forgotpassword/error-otp-null.json', 'UTF-8'))
+const successForgotOtp = JSON.parse(fs.readFileSync('./sample/forgotpassword/success-otp.json', 'UTF-8'))
 const getTotalUsersSuccess = JSON.parse(fs.readFileSync('./sample/get-total-users/success.json', 'UTF-8'))
 const getUserStatisticSuccess = JSON.parse(fs.readFileSync('./sample/get-user-statistic/success.json', 'UTF-8'))
 const getUserStatisticError = JSON.parse(fs.readFileSync('./sample/get-user-statistic/error.json', 'UTF-8'))
@@ -22,15 +30,20 @@ const getMenuError = JSON.parse(fs.readFileSync('./sample/get-menu/error.json', 
 server.use(jsonServer.defaults());
 
 const USERNAME = 'admin'
-const PASSWORD = '121314'
+let PASSWORD = '121314'
 
 server.use(jsonServer.bodyParser)
 server.post('/api/user/login', (req, res) => {
-  if(req.body.username === USERNAME && req.body.password === PASSWORD)
-    res.status(200).json(loginSuccess)
-  else {
-    res.status(200).json(loginError)
+  if (req.body.username === USERNAME) {
+    if (req.body.username === PASSWORD)
+      res.status(200).json(loginSuccess)
+    else
+      res.status(200).json(loginPasswordError)
+  } else {
+    res.status(200).json(loginUsernameError)
   }
+   
+  
 })
 server.post('/api/user/get-by-username', (req, res) => {
   if(req.body.username === USERNAME)
@@ -39,6 +52,42 @@ server.post('/api/user/get-by-username', (req, res) => {
     res.status(200).json(errorForgotDb)
   }
 })
+server.post('/api/user/forgot-password-otp', (req, res) => {
+  res.status(200).json(successForgotOtp)
+})
+
+server.post('/api/token/resend-otp', (req, res) => {
+  res.status(200).json(successForgotOtp);
+});
+
+server.post('/api/user/reset-password', (req, res) => {
+  if (req.body.password === '123456') {
+    res.status(200).json(errorReset);
+  } else {
+    PASSWORD = req.body.password;
+    res.status(200).json(successReset);
+  }
+});
+
+server.post('/api/user/forgot-password-security-confirm', (req, res) => {
+  if (req.body.securityAnswer === 'first') {
+    res.status(200).json(successAnswer);
+  } else {
+    res.status(200).json(errorAnswer);
+  }
+});
+
+
+server.post('/api/user/forgot-password-otp-confirm', (req, res) => {
+  if (req.body.token === null || req.body.token === undefined || req.body.token === '') {
+    res.status(200).json(errorSubmitOTPNull);
+  } else if (req.body.token === '123456') {
+    res.status(200).json(successForgotOtp);
+  } else {
+    res.status(200).json(errorSubmitOTP);
+  }
+});
+
 server.post('/api/user/get-total-users', (req, res) => {
   res.status(200).json(getTotalUsersSuccess)
 })

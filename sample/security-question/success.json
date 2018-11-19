@@ -1,0 +1,9 @@
+{
+    "responseCode": "1000",
+        "responseMessage": "Process successful.",
+        "response": {
+            "username" : "admin",
+            "msisdn"	: "08123456789",
+            "reference" : "72468hdjnwjsk8asljas"
+        }
+}

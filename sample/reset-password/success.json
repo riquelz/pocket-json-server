@@ -1,0 +1,7 @@
+{
+	"responseCode": "1000",
+    "responseMessage": "Process successful.",
+    "response": {
+    	"username" : "admin"
+    }
+}
